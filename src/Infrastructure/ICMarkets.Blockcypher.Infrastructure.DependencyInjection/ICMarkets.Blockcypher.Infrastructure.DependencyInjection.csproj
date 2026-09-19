@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.31" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.31" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.31" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.31" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ICMarkets.Blockcypher.Infrastructure.Authentication\ICMarkets.Blockcypher.Infrastructure.Authentication.csproj" />
+    <ProjectReference Include="..\ICMarkets.Blockcypher.Infrastructure.Configuration\ICMarkets.Blockcypher.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\ICMarkets.Blockcypher.Infrastructure.ExternalApis\ICMarkets.Blockcypher.Infrastructure.ExternalApis.csproj" />
+    <ProjectReference Include="..\ICMarkets.Blockcypher.Infrastructure.Persistance\ICMarkets.Blockcypher.Infrastructure.Persistance.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+<Solution>
+  <Folder Name="/Api/">
+    <Project Path="src/API/ICMarkets.Blockcypher.Api/ICMarkets.Blockcypher.Api.csproj" />
+  </Folder>
+  <Folder Name="/Application/">
+    <Project Path="src/Application/ICMarkets.Blockcypher.Application.Configuration/ICMarkets.Blockcypher.Application.Configuration.csproj" />
+    <Project Path="src/Application/ICMarkets.Blockcypher.Application.DataObjects/ICMarkets.Blockcypher.Application.DataObjects.csproj" Id="10ddb41a-fd77-4038-bc4e-fe4ff9895e5b" />
+    <Project Path="src/Application/ICMarkets.Blockcypher.Application.DependencyInjection/ICMarkets.Blockcypher.Application.DependencyInjection.csproj" Id="7b613072-a469-470a-8502-65a5fb1ef455" />
+    <Project Path="src/Application/ICMarkets.Blockcypher.Application.Interfaces/ICMarkets.Blockcypher.Application.Interfaces.csproj" />
+    <Project Path="src/Application/ICMarkets.Blockcypher.Application.Services/ICMarkets.Blockcypher.Application.Services.csproj" />
+  </Folder>
+  <Folder Name="/Domain/">
+    <Project Path="src/Domain/ICMarkets.Blockcypher.Domain.Entities/ICMarkets.Blockcypher.Domain.Entities.csproj" Id="4a2e777d-07be-4553-bf95-0f2f9dc41d6f" />
+    <Project Path="src/Domain/ICMarkets.Blockcypher.Domain.Types/ICMarkets.Blockcypher.Domain.Types.csproj" Id="a5bee875-d1b4-400f-8a56-66d0a6213c8c" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.ExternalApis/ICMarkets.Blockcypher.Infrastructure.ExternalApis.csproj" Id="6b41d297-df8d-4370-89df-f03faffb6492" />
+    <Project Path="src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Authentication/ICMarkets.Blockcypher.Infrastructure.Authentication.csproj" />
+    <Project Path="src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Configuration/ICMarkets.Blockcypher.Infrastructure.Configuration.csproj" Id="09f9329e-c91d-4768-a459-f6bf4e2013fb" />
+    <Project Path="src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.DependencyInjection/ICMarkets.Blockcypher.Infrastructure.DependencyInjection.csproj" Id="b8f16e57-06a1-4e38-ae11-edd769ee6640" />
+    <Project Path="src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Persistance/ICMarkets.Blockcypher.Infrastructure.Persistance.csproj" Id="f91fcbf6-25e7-4cba-b863-cac4feb50cf3" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FunctionalTests/ICMarkets.Blockcypher.FunctionalTests/ICMarkets.Blockcypher.FunctionalTests.csproj" />
+    <Project Path="tests/ICMarkets.Blockcypher.Tests.Shared/ICMarkets.Blockcypher.Tests.Shared.csproj" />
+    <Project Path="tests/IntegrationTests/ICMarkets.Blockcypher.IntegrationTests/ICMarkets.Blockcypher.IntegrationTests.csproj" />
+    <Project Path="tests/UnitTests/ICMarkets.Blockcypher.Api.UnitTests/ICMarkets.Blockcypher.Api.UnitTests.csproj" />
+    <Project Path="tests\UnitTests\ICMarkets.Blockcypher.Application.UnitTests\ICMarkets.Blockcypher.Application.UnitTests.csproj" />
+    <Project Path="tests\UnitTests\ICMarkets.Blockcypher.Infrastructure.UnitTests\ICMarkets.Blockcypher.Infrastructure.UnitTests.csproj" />
+  </Folder>
+</Solution>

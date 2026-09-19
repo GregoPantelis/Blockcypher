@@ -1,0 +1,14 @@
+{
+  "DatabaseConnections": {
+    "ConnectionStrings": [
+      {
+        "DatabaseName": "Default",
+        "Value": "Data Source=Data/blockcypher-dev.db"
+      },
+      {
+        "DatabaseName": "BlockcypherDb",
+        "Value": "Data Source=Data/blockcypher-dev.db"
+      }
+    ]
+  }
+}

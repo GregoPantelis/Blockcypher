@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "04df17d5-79ee-4228-a454-1c63f0fdf348",
+		"name": "Blockcypher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11144686"
+	},
+	"item": [
+		{
+			"name": "BTCmain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.blockcypher.com/v1/btc/main",
+					"protocol": "https",
+					"host": [
+						"api",
+						"blockcypher",
+						"com"
+					],
+					"path": [
+						"v1",
+						"btc",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BTCtest3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.blockcypher.com/v1/btc/test3",
+					"protocol": "https",
+					"host": [
+						"api",
+						"blockcypher",
+						"com"
+					],
+					"path": [
+						"v1",
+						"btc",
+						"test3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DASHmain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.blockcypher.com/v1/dash/main",
+					"protocol": "https",
+					"host": [
+						"api",
+						"blockcypher",
+						"com"
+					],
+					"path": [
+						"v1",
+						"dash",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ETHmain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.blockcypher.com/v1/eth/main",
+					"protocol": "https",
+					"host": [
+						"api",
+						"blockcypher",
+						"com"
+					],
+					"path": [
+						"v1",
+						"eth",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LTCmain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.blockcypher.com/v1/ltc/main",
+					"protocol": "https",
+					"host": [
+						"api",
+						"blockcypher",
+						"com"
+					],
+					"path": [
+						"v1",
+						"ltc",
+						"main"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "snapshot",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authJwtToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"chain\": \"test3\",\n  \"coin\": \"btc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/api/blockchains/snapshot",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"blockchains",
+						"snapshot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "history",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authJwtToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "coin",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "chain",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/:coin/:chain/history",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						":coin",
+						":chain",
+						"history"
+					],
+					"variable": [
+						{
+							"key": "coin",
+							"value": "btc"
+						},
+						{
+							"key": "chain",
+							"value": "test3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"const token = response.token;",
+							"",
+							"pm.environment.replaceIn(\"{{authJwtToken}}\");",
+							"",
+							"pm.environment.set(\"authJwtToken\", token);",
+							"",
+							"console.log(\"New token:\", token);",
+							"console.log(\"Environment value:\", pm.environment.get(\"authJwtToken\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"icmarkets\",\n  \"password\": \"blockChain2027!!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/api/auth/login",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}://{{domain}}:{{port}}/health",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{domain}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,35 @@
+{
+  "DatabaseConnections": {
+    "ConnectionStrings": [
+      {
+        "DatabaseName": "Default",
+        "Value": "Data Source=Data/blockcypher.db"
+      },
+      {
+        "DatabaseName": "BlockcypherDb",
+        "Value": "Data Source=Data/blockcypher.db"
+      }
+    ]
+  },
+  "ExternalApis" : {
+    "Endpoints": [
+      {
+        "Name": "Blockcypher",
+        "BaseUrl": "https://api.blockcypher.com",
+        "Timeout": 10,
+        "ApiVersion": "v1"
+      }
+    ]
+  },
+  "AuthSettings" : {
+    "TokenType" : "JWT",
+    "JwtAuthConfigs": [
+      {
+        "Signature" : "dGhlSWNNYXJrZXRzU2lnbmF0dXJlRm9ySldUMjAyNyE=",
+        "Audience" : "icmarkets",
+        "Issuer" : "Blockcypher",
+        "ExpiryMinutes" : 20
+      }
+    ]
+  }
+}

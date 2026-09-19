@@ -1,0 +1,25 @@
+services:
+  blockcypher-api:
+    build:
+      context: ./src
+      dockerfile: API/ICMarkets.Blockcypher.Api/Dockerfile
+
+    container_name: blockcypher-api
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      InitialUser__Username: ${INITIAL_USER_USERNAME}
+      InitialUser__Password: ${INITIAL_USER_PASSWORD}
+
+    volumes:
+      - blockcypher-data:/app/Data
+      - blockcypher-logs:/app/Logs
+
+    restart: unless-stopped
+
+volumes:
+  blockcypher-data:
+  blockcypher-logs:
