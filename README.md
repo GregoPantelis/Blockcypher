@@ -15,9 +15,10 @@ The application provides:
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
-  - [1. Clone the Repository](#1-clone-the-repository)
-  - [2. Configure the Environment](#2-configure-the-environment)
-  - [3. Run the Application](#3-run-the-application)
+  - [1. Repository Structure](#1-repository-structure)
+  - [2. Clone the Repository](#1-clone-the-repository)
+  - [3. Configure the Environment](#2-configure-the-environment)
+  - [4. Run the Application](#3-run-the-application)
 - [API](#api)
   - [Authentication](#authentication)
   - [Supported Blockchain Values](#supported-blockchain-values)
@@ -31,6 +32,7 @@ The application provides:
 - [Configuration](#configuration)
   - [Configuration Files](#configuration-files)
 - [Logging](#logging)
+- [Postman](#postman)
 
 ## Requirements
 
@@ -49,14 +51,60 @@ No external database installation is required. The application uses SQLite for p
 
 ## Getting Started
 
-### 1. Clone the Repository
+### 1. Repository Structure
+
+```text
+Blockcypher/
+├── src/
+│   ├── API/
+│   │   └── ICMarkets.Blockcypher.Api
+│   │
+│   ├── Application/
+│   │   ├── ICMarkets.Blockcypher.Application.Configuration
+│   │   ├── ICMarkets.Blockcypher.Application.DataObjects
+│   │   ├── ICMarkets.Blockcypher.Application.DependencyInjection
+│   │   ├── ICMarkets.Blockcypher.Application.Interfaces
+│   │   └── ICMarkets.Blockcypher.Application.Services
+│   │
+│   ├── Domain/
+│   │   ├── ICMarkets.Blockcypher.Domain.Entities
+│   │   └── ICMarkets.Blockcypher.Domain.Types
+│   │
+│   └── Infrastructure/
+│       ├── ICMarkets.Blockcypher.Infrastructure.Authentication
+│       ├── ICMarkets.Blockcypher.Infrastructure.Configuration
+│       ├── ICMarkets.Blockcypher.Infrastructure.DependencyInjection
+│       ├── ICMarkets.Blockcypher.Infrastructure.ExternalApis
+│       └── ICMarkets.Blockcypher.Infrastructure.Persistance
+│
+├── tests/
+│   ├── UnitTests/
+|   |   ├── ICMarkets.Blockcypher.Api.UnitTests
+│   │   |── ICMarkets.Blockcypher.Application.UnitTests
+│   │   └── ICMarkets.Blockcypher.Infrastructure.UnitTests
+│   ├── IntegrationTests/
+│   │   └── ICMarkets.Blockcypher.IntegrationTests
+│   ├── FunctionalTests/
+│   │   └── ICMarkets.Blockcypher.FunctionalTests
+│   └── ICMarkets.Blockcypher.Tests.Shared
+│
+├── postman/
+│   ├── Blockcypher.postman_collection.json
+│   └── Blockcypher_Env.postman_environment.json
+│
+├── docker-compose.yml
+├── run.sh
+└── run.ps1
+```
+
+### 2. Clone the Repository
 
 ```bash
 git clone "https://github.com/GregoPantelis/Blockcypher.git"
 cd Blockcypher
 ```
 
-### 2. Configure the Environment
+### 3. Configure the Environment
 
 Create a `.env` file in the repository root using `.env.example` as a template:
 
@@ -80,7 +128,7 @@ INITIAL_USER_PASSWORD=<password>
 
 The `.env` file contains environment-specific values and should not be committed to source control.
 
-### 3. Run the Application
+### 4. Run the Application
 
 The repository provides startup scripts for both Linux and Windows. The scripts load the configuration from `.env` and automatically select an available runtime.
 
@@ -379,3 +427,19 @@ config.Development.json
 Environment variables can be used to override configuration values without modifying the configuration files.
 
 Sensitive values, such as credentials and secrets, should be provided through environment variables and should not be committed to source control.
+
+### Postman
+
+A ready-to-use Postman collection and environment are included in the repository:
+
+```text
+postman/
+├── Blockcypher.postman_collection.json
+└── Blockcypher_Env.postman_environment.json
+```
+
+Import both files into Postman and select the `Blockcypher_Env` environment.
+
+The collection contains the available API requests and uses environment variables for values such as the API base URL and JWT authentication token.
+
+The authentication request automatically stores the returned JWT token in the environment for use by protected endpoints.
