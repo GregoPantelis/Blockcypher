@@ -1,7 +1,5 @@
 # Blockcypher API
 
-Short description of what the application does.
-
 ## Overview
 
 Blockcypher API is a .NET 8 REST API for retrieving and storing blockchain information using the BlockCypher API.
