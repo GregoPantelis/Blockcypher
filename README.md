@@ -20,6 +20,8 @@ The application provides:
   - [3. Configure the Environment](#2-configure-the-environment)
   - [4. Run the Application](#3-run-the-application)
 - [API](#api)
+  - [Swagger](#swagger)
+  - [Endpoints](#endpoints)
   - [Authentication](#authentication)
   - [Supported Blockchain Values](#supported-blockchain-values)
 - [Architecture](#architecture)
@@ -183,6 +185,22 @@ The health endpoint can be used to verify that the application is running:
 http://localhost:8080/health
 ```
 ## API
+
+### Swagger
+
+Swagger UI is available when the application is running in the `Development` environment and provides interactive documentation for all available API endpoints.
+
+```text
+http://localhost:8080/swagger
+```
+
+The OpenAPI specification is also available at:
+
+```text
+http://localhost:8080/swagger/v1/swagger.json
+```
+
+### Endpoints
 
 All protected endpoints require a valid JWT access token using the `Bearer` authentication scheme.
 
