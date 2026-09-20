@@ -105,3 +105,8 @@ Desktop.ini
 # =========================
 _ReSharper*/
 *.DotSettings.user
+
+# =========================
+# .NET Files
+# =========================
+global.json
