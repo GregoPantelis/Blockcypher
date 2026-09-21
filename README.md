@@ -10,6 +10,9 @@ The application provides:
 - Persistence of blockchain snapshots.
 - Retrieval of historical blockchain data.
 
+GitDiagram: <https://gitdiagram.com/gregopantelis/blockcypher> \
+GitIngest: <https://gitingest.com/gregopantelis/blockcypher>
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -25,6 +28,7 @@ The application provides:
   - [Authentication](#authentication)
   - [Supported Blockchain Values](#supported-blockchain-values)
 - [Architecture](#architecture)
+  - [Diagram](#diagram)
   - [Project Structure](#project-structure)
 - [Persistence](#persistence)
   - [Database Initialization](#database-initialization)
@@ -301,6 +305,91 @@ The solution is organized into four main layers:
 | **Application** | Contains application services, interfaces, DTOs and application logic. |
 | **Infrastructure** | Provides implementations for persistence, authentication, external APIs and other technical concerns. |
 | **API** | Exposes the application through REST endpoints and handles application startup and configuration. |
+
+### Diagram
+
+```mermaid
+flowchart TD
+
+subgraph group_api["API Layer"]
+  node_auth_controller["Auth Controller"]
+  node_blockchain_controller["Blockchain Controller"]
+  node_health_endpoint["Health Endpoint"]
+end
+
+subgraph group_application["Application Layer"]
+  node_auth_service["Authentication Service"]
+  node_blockchain_service["Blockchain Service"]
+  node_blockchain_dto["Blockchain Data<br/>[BlockchainData.cs]"]
+end
+
+subgraph group_domain["Domain Layer"]
+  node_blockchain_entity["Blockchain Entity"]
+  node_user_entity["User Entities<br/>[UserEntity.cs]"]
+end
+
+subgraph group_infrastructure["Infrastructure Layer"]
+  node_user_auth_uow["User Auth UoW"]
+  node_blockchain_uow["Blockchain UoW"]
+  node_repository["EF Repository<br/>[Repository.cs]"]
+  node_sqlite[("SQLite Database")]
+  node_jwt_service["JWT Token Service<br/>[JwtTokenService.cs]"]
+  node_blockchain_provider["Blockchain Provider"]
+  node_api_client["HTTP API Client<br/>[ApiClient.cs]"]
+end
+
+node_client(("API Client"))
+node_blockcypher["BlockCypher API"]
+
+node_client -->|"logs in"| node_auth_controller
+node_auth_controller -->|"authenticates"| node_auth_service
+node_auth_service -->|"loads user"| node_user_auth_uow
+node_user_auth_uow -->|"queries users"| node_repository
+node_repository -->|"reads"| node_sqlite
+node_auth_service -->|"issues token"| node_jwt_service
+node_auth_controller -->|"returns token"| node_client
+node_client -->|"requests snapshot"| node_blockchain_controller
+node_blockchain_controller -->|"captures snapshot"| node_blockchain_service
+node_blockchain_service -->|"fetches data"| node_blockchain_provider
+node_blockchain_provider -->|"requests data"| node_api_client
+node_api_client -->|"queries"| node_blockcypher
+node_blockchain_service -->|"stores snapshot"| node_blockchain_uow
+node_blockchain_uow -->|"persists"| node_repository
+node_repository -->|"writes"| node_sqlite
+node_client -->|"requests history"| node_blockchain_controller
+node_blockchain_controller -->|"reads history"| node_blockchain_service
+node_blockchain_service -->|"loads history"| node_blockchain_uow
+node_blockchain_uow -->|"reads snapshots"| node_sqlite
+node_client -->|"checks health"| node_health_endpoint
+
+click node_auth_controller "https://github.com/gregopantelis/blockcypher/blob/main/src/API/ICMarkets.Blockcypher.Api/Controllers/AuthenticationController.cs"
+click node_blockchain_controller "https://github.com/gregopantelis/blockcypher/blob/main/src/API/ICMarkets.Blockcypher.Api/Controllers/BlockchainController.cs"
+click node_health_endpoint "https://github.com/gregopantelis/blockcypher/blob/main/src/API/ICMarkets.Blockcypher.Api/Extensions/ServiceCollectionExtensions.cs"
+click node_auth_service "https://github.com/gregopantelis/blockcypher/blob/main/src/Application/ICMarkets.Blockcypher.Application.Services/Authentication/UserAuthenticationService.cs"
+click node_blockchain_service "https://github.com/gregopantelis/blockcypher/blob/main/src/Application/ICMarkets.Blockcypher.Application.Services/Blockchain/BlockchainService.cs"
+click node_blockchain_dto "https://github.com/gregopantelis/blockcypher/blob/main/src/Application/ICMarkets.Blockcypher.Application.DataObjects/Dtos/BlockchainData.cs"
+click node_blockchain_entity "https://github.com/gregopantelis/blockcypher/blob/main/src/Domain/ICMarkets.Blockcypher.Domain.Entities/Entities/BlockchainEntity.cs"
+click node_user_entity "https://github.com/gregopantelis/blockcypher/blob/main/src/Domain/ICMarkets.Blockcypher.Domain.Entities/Entities/User/UserEntity.cs"
+click node_user_auth_uow "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Persistance/UoW/UserAuthUnitOfWork.cs"
+click node_blockchain_uow "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Persistance/UoW/BlockcypherUnitOfWork.cs"
+click node_repository "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Persistance/Repository/Repository.cs"
+click node_sqlite "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Persistance/DbContexts/BlockcypherDbContext.cs"
+click node_jwt_service "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.Authentication/Services/JwtTokenService.cs"
+click node_blockchain_provider "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.ExternalApis/ApiServices/BlockchainDataProvider.cs"
+click node_api_client "https://github.com/gregopantelis/blockcypher/blob/main/src/Infrastructure/ICMarkets.Blockcypher.Infrastructure.ExternalApis/ApiClients/ApiClient.cs"
+
+classDef toneNeutral fill:#f8fafc,stroke:#334155,stroke-width:1.5px,color:#0f172a
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
+class node_auth_controller,node_blockchain_controller,node_health_endpoint,node_client toneBlue
+class node_auth_service,node_blockchain_service,node_blockchain_dto toneAmber
+class node_blockchain_entity,node_user_entity,node_blockcypher toneMint
+class node_user_auth_uow,node_blockchain_uow,node_repository,node_sqlite,node_jwt_service,node_blockchain_provider,node_api_client toneRose
+```
 
 ### Project Structure
 
